@@ -61,6 +61,8 @@ class Timetable:
 
     def _parse_row(self, row):
         entries = [entry.text.replace('\n', '').replace('-', ' ').strip() for entry in row.find_all('td')]
+        if len(entries) <= 1:
+            return None
         return Section(**dict(zip(self.data_keys, entries)))
 
     def _parse_table(self, html):
