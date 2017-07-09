@@ -2,10 +2,9 @@ import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-
 class Timetable:
-
     def __init__(self):
+        
         self.url = 'https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_ProcRequest'
         self.sleep_time = 1
         self.base_request = {  # base required request data
@@ -18,7 +17,7 @@ class Timetable:
 
     @property
     def _default_term_year(self):
-        term_months = [1, 6, 7, 8]  # Spring, Summer I, Summer II, Fall
+        term_months = [1, 6, 7, 9]  # Spring, Summer I, Summer II, Fall
         current_year = datetime.today().year
         current_month = datetime.today().month
         term_month = max(key for key in term_months if key <= current_month)
@@ -42,21 +41,29 @@ class Timetable:
                        term_year=None, open_only=True):
         request_data = self.base_request.copy()
         request_data['TERMYEAR'] = term_year if term_year is not None else self._default_term_year
+
         if crn_code is not None:
             if len(crn_code) < 3:
                 raise ValueError('Invalid CRN: must be longer than 3 characters')
             request_data['crn'] = crn_code
+
         if subject_code is not None:
             request_data['subj_code'] = subject_code
+
         if class_number is not None:
             if len(class_number) != 4:
                 raise ValueError('Invalid Subject Number: must be 4 characters')
             request_data['CRSE_NUMBER'] = class_number
+
         if subject_code is None and class_number is not None:
             raise ValueError('A subject code must be supplied with a class number')
+
         request_data['CORE_CODE'] = 'AR%' if cle_code is None else cle_code
+
         request_data['open_only'] = 'on' if open_only else ''
-        sections = self._parse_table(self._make_request(request_data))
+
+        req = self._make_request(request_data)
+        sections = self._parse_table(req)
         return None if sections is None or len(sections) == 0 else sections
 
     def _parse_row(self, row):
@@ -78,6 +85,7 @@ class Timetable:
             raise TimetableError('The VT Timetable is down or the request was bad. Status Code was: %d'
                                  % r.status_code, self.sleep_time)
         self.sleep_time = 1
+
         return BeautifulSoup(r.content, 'html.parser')
 
 
