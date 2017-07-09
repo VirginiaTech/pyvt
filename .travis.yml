@@ -6,6 +6,9 @@ install:
   - pip install coveralls
 script: coverage run --source=pyvt -m unittest discover -s tests -p "test_*.py"
 after_success: coveralls
+branches:
+  only:
+    - master
 deploy:
   provider: pypi
   user: kevincianfarini
