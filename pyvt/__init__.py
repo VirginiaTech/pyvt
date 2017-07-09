@@ -70,7 +70,7 @@ class Timetable:
         if table is None:
             return None
         rows = [row for row in table.find_all('tr') if row.attrs == {}]
-        sections = [pc for pc in (self._parse_row(c) for c in rows) if pc is not None]
+        sections = [self._parse_row(c) for c in rows if self._parse_row(c) is not None]
         return None if not sections else sections
 
     def _make_request(self, request_data):
