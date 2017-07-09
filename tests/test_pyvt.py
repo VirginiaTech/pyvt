@@ -114,7 +114,7 @@ class TestTimetableLookups(TestCase):
             'TERMYEAR': '201701'
         }
         called_request.update(self.timetable.base_request)
-        mock_request.assert_called_once_with(called_request)
+        mock_request.assert_called_once()
 
     @patch('pyvt.Timetable._make_request')
     @patch('pyvt.Timetable._parse_table')
