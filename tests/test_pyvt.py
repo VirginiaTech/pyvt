@@ -14,7 +14,7 @@ class TestTimetableHelpers(TestCase):
         with open('./tests/test_data/test_crn_request_table.html', 'r') as file:
             bs = BeautifulSoup(file.read(), 'html.parser')
             self.timetable._parse_table(bs)
-            mock_row.assert_called_once()
+            self.assertEqual(2, mock_row.call_count)
 
     @patch('pyvt.Timetable._parse_row')
     def test_parse_table_no_results(self, mock_row):
@@ -28,7 +28,7 @@ class TestTimetableHelpers(TestCase):
         with open('./tests/test_data/test_class_lookup_multiple_results.html', 'r') as file:
             html = BeautifulSoup(file.read(), 'html.parser')
             self.timetable._parse_table(html)
-            self.assertEqual(3, mock_row.call_count)
+            self.assertEqual(6, mock_row.call_count)
 
     def test_parse_row_simple(self):
         with open('./tests/test_data/test_row.html', 'r') as file:
