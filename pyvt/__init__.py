@@ -61,6 +61,8 @@ class Timetable:
 
     def _parse_row(self, row):
         entries = [entry.text.replace('\n', '').replace('-', ' ').strip() for entry in row.find_all('td')]
+        if len(entries) <= 1:
+            return None
         return Section(**dict(zip(self.data_keys, entries)))
 
     def _parse_table(self, html):
@@ -68,8 +70,8 @@ class Timetable:
         if table is None:
             return None
         rows = [row for row in table.find_all('tr') if row.attrs == {}]
-        sections = [self._parse_row(c) for c in rows]
-        return sections
+        sections = [self._parse_row(c) for c in rows if self._parse_row(c) is not None]
+        return None if not sections else sections
 
     def _make_request(self, request_data):
         r = requests.post(self.url, data=request_data)
