@@ -1,18 +1,18 @@
 language: python
 python:
-- '3.6'
+  - '3.6'
 dist: trusty
 sudo: required
 install:
-- pip install -r requirements.txt
-- pip install coveralls
+  - pip install -r requirements.txt
+  - pip install coveralls
 script: coverage run --source=pyvt -m unittest discover -s tests -p "test_*.py"
 after_success: coveralls
 deploy:
   provider: pypi
   user: kevincianfarini
   password:
-    secure: E8DXfOYB4vxDMw5CrilLvhQizssqehR2xl2LfRUJ6EIRfMYmuKIYQX3PnrmVvvcnb43U8q4FpYOlkvA8BdYFMCwFmVK6Z8aC97YwnrwVcuK29dAdB5pt5kifQjHAlkNiHUkaqfgKL4iksTPSatEuR137EZvjdWAusDzI9VN0sI3wOdabDco0c5p1RgEOftZL9t3JzPUfFK72Foew7az2VL224jc05ervcM6NjZ+xRolQtMkEN9sNMro0twBkRlj6oxO99M/eZuFeMWPuRDjYCG4Qc+tHqPPRFnjqcKFblyEc5aM5WPtxd3fgscJk+d+rEt0+jqPnOFZZPaJjVlvFCYW3KoXXCpfsyAopSX758ONpmTY1xveGGcq2+OmeCdyglHC6uhDS+U89y3KG3g4RwJdaDnIvZidO6yiiIR2obghJpV8rCGG+twrotN1lncS3pCik9+tuNwuTVLvGYpn5C3sVc+7k+FjLV8Jq1qYSa0uai4dBgH2q75a7Ug0Pk1fwtskklNSixbwMbh54A2Jkh/KkwMrEuiVzddHglwLBIx428C+UZEMPHM2+/yKHZ0sTD0kWXwpZoYEEuvUzGha6dzqZFRUfFfEG6+4eLKL/gdgOqR0v3JFE3NBE/pZg+RQuVk22FgGdPAfaTlCPJ+9rPAllP+ALI1h9xz7mZXH4t4E=
+    secure: GjhH1MUe0kt/Cp02VdrGeqBE6XATH01a2/S5R7gipYinVeiDJK9fYrMr+xWZo19ma9pJ8CMA3Ut1Wx+k3W5aAMVurK2eYiWwwPuBhH/6IK+6j1poupJ1PbKII8bBySpQQAFiMfBZr5OIqpmfXasZZ+C4cdmIckGFAiIs+9wzFSVDOk6zBTtc7cqbqhYX7/YEW7NRoJLf9GKm9rQW2MY76zeIF8m+PqO+WZVKElEEKWJxMN6hUvV838srQtk5Ksq1z8ePXABh1IGGdp4QGUmiQAKfzOvVmn97l/bBB+E3n7nJ1lg3m55C3oynkqPNZ+3euvNLsa+IAjQvpnCBtl9pAeHrcUXHaRiDgjCdNUFyDa4UfBwS0l2my5r4UkWbxe/Jhdp4Y4SAwHrutFTWm8h82FreE963iI6WXyYNijSXKtOS90pyxFzMbOMnRvhj1vcaFcd+itvvraA+lJVCNNedOj5XTuxfziODvyDZ8cOZRNZia2AWMkoDumbAuGKwFBNYoOdt/Fk0nvVF7sz2o5eHhtZFNc6SxonT5JuwuM2gP81m/nYCx9iaiu8AxdnHO9wRlhE/6dUJS4Qh8sO0F9x1WgmAXLhACma+zFCllIbk3g9pyPMD1k4ZQ/6e6FC3fJzAC/y5e5wO7K6Zc9bC/KDF/jEn0JRAl4hQwmNP9RkHhJI=
   on:
     tags: true
     all_branches: true
